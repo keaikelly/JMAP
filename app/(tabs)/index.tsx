@@ -67,17 +67,26 @@ export default function HomeScreen() {
                 style={styles.roomCard}
                 onPress={() =>
                   router.push({
-                    pathname: "/createChat",
+                    pathname: "/room/[roomId]",
                     params: { roomId: plan.id },
                   })
                 }
               >
                 <View style={styles.roomPreview}>
-                  <Image
-                    source={{ uri: plan.imageUri }}
-                    style={styles.roomPreviewImage}
-                    contentFit="cover"
-                  />
+                  {plan.imageUri ? (
+                    <Image
+                      source={{ uri: plan.imageUri }}
+                      style={styles.roomPreviewImage}
+                      contentFit="cover"
+                    />
+                  ) : (
+                    <View style={styles.roomPreviewPlaceholder}>
+                      <Ionicons name="image-outline" size={20} color="#9CA3AF" />
+                      <Text style={styles.roomPreviewPlaceholderText}>
+                        캡처 없음
+                      </Text>
+                    </View>
+                  )}
                 </View>
 
                 <View style={styles.roomBody}>
@@ -225,6 +234,18 @@ const styles = StyleSheet.create({
   },
   roomPreview: {
     backgroundColor: "#F3F4F6",
+  },
+  roomPreviewPlaceholder: {
+    width: "100%",
+    height: 148,
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 6,
+  },
+  roomPreviewPlaceholderText: {
+    fontSize: 12,
+    fontWeight: "600",
+    color: "#9CA3AF",
   },
   roomPreviewImage: {
     width: "100%",
